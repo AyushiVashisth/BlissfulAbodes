@@ -1,0 +1,74 @@
+<!-- app.component.html -->
+<div class="world-wide">
+  <div>
+    <div>
+      <img
+        src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/landing%20background%20map.png"
+        alt="landing background map"
+      />
+      <div *ngIf="uae" class="uaeDiv">UAE</div>
+      <img
+        src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/uae.png"
+        alt="uae"
+        class="uae"
+        (mouseenter)="uae = true"
+        (mouseleave)="uae = false"
+      />
+      <div *ngIf="nepal" class="nepalDiv">Nepal</div>
+      <img
+        src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/nepal.png"
+        alt="nepal"
+        class="nepal"
+        (mouseenter)="nepal = true"
+        (mouseleave)="nepal = false"
+      />
+      <div *ngIf="china" class="chinaDiv">China</div>
+      <img
+        src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/china.png"
+        alt="china"
+        class="china"
+        (mouseenter)="china = true"
+        (mouseleave)="china = false"
+      />
+      <div *ngIf="india" class="indiaDiv">India</div>
+      <img
+        src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/india.png"
+        alt="india"
+        class="india"
+        (mouseenter)="india = true"
+        (mouseleave)="india = false"
+      />
+      <div *ngIf="malayasia" class="malayasiaDiv">Malayasia</div>
+      <img
+        src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/malayasia.png"
+        alt="malayasia"
+        class="malayasia"
+        (mouseenter)="malayasia = true"
+        (mouseleave)="malayasia = false"
+      />
+      <div *ngIf="indo" class="indoDiv">Indonesia</div>
+      <img
+        src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/indonesia.png"
+        alt="indonesia"
+        class="indonesia"
+        (mouseenter)="indo = true"
+        (mouseleave)="indo = false"
+      />
+    </div>
+  </div>
+  <div class="world-wide-right-section">
+    <p>World’s leading chain of hotels and homes</p>
+    <p>More Destinations More Ease. More Affordable.</p>
+    <div>
+      <p><span>80</span><br />Countries</p>
+      <p><span>45000+</span><br />Hotels</p>
+      <p><span>150,000</span><br />Vacation Homes</p>
+    </div>
+    <ul>
+      <li>India</li>
+      <li>China</li>
+      <li>Nepal</li>
+      <li>Indonesia</li>
+    </ul>
+  </div>
+</div>
