@@ -1,0 +1,145 @@
+<!-- ///app.component.html -->
+<!-- BlissfulAbodes -->
+<!-- ----------------- Navbar ----------- -->
+<div id="navbar">
+<nav class="navbar">
+  <div class="left-side">
+    <div class="logo-container">
+      <span class="logo-text">Blissful</span
+      ><span class="logo-subtext">Abodes</span>
+    </div>
+  </div>
+  <div class="middle">
+    <div class="InputContainer">
+      <input
+        type="text"
+        name="text"
+        class="input"
+        id="input"
+        placeholder="Search"
+      />
+      <label for="input" class="labelforsearch">
+        <mat-icon class="searchIcon">search</mat-icon>
+      </label>
+      <div class="border"></div>
+      <button class="micButton">
+        <mat-icon class="micIcon">mic</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="right-side">
+    <mat-icon>account_circle</mat-icon>
+    <button class="login-btn" (click)="onLoginClicked()">
+      Login / Sign in
+    </button>
+  </div>
+</nav>
+<div class="locations">
+  <div *ngFor="let location of locations">
+    <div class="down" (click)="toggleDropdown(location)">
+      <p>{{ location.name }}</p>
+      <mat-icon>
+        {{
+          location === activeLocation
+            ? "keyboard_arrow_up"
+            : "keyboard_arrow_down"
+        }}
+      </mat-icon>
+    </div>
+
+    <div
+      *ngIf="location === activeLocation"
+      class="dropdown"
+      (mouseenter)="toggleDropdown(location)"
+      (mouseleave)="toggleDropdown(null)"
+    >
+      <p>Popular Localities</p>
+      <p *ngFor="let item of location.more">{{ item }}</p>
+    </div>
+  </div>
+  <div class="all-cities down">
+    <p>All Cities</p>
+    <mat-icon>fast_forward</mat-icon>
+  </div>
+</div>
+</div>
+
+<!-- ... -->
+
+<div class="landing-wrapper">
+  <router-outlet></router-outlet>
+</div>
+
+<!-- ------------------ Footer ---------------------- -->
+
+<div class="footer">
+  <div class="footer-sec1">
+    <div>
+      <div class="left-side">
+        <div class="logo-container">
+          <span class="logo-text">Blissful</span
+          ><span class="logo-subtext">Abodes</span>
+        </div>
+      </div>
+      <p>The World’s Fastest Growing Hotel Chain</p>
+    </div>
+    <div>
+      <p>Join our network and grow your business!</p>
+      <button>
+        <img src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/property.png" alt="property" />
+        List your property
+      </button>
+    </div>
+  </div>
+  <div class="footer-sec2">
+    <div>
+      <p>Download BlissfulAbodes app for exciting offers.</p>
+      <br />
+      <img src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/appstore.png" alt="applestore" />
+      <img src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/playstored.png" alt="playstored" />
+    </div>
+    <div>
+      <p>About Us</p>
+      <p>Teams / Careers</p>
+      <p>Blogs</p>
+      <p>Support</p>
+      <p>Official BlissfulAbodes Blog</p>
+      <p>Press Kit</p>
+      <p>BlissfulAbodes Circle</p>
+      <p>BlissfulAbodes Frames</p>
+    </div>
+    <div>
+      <p>Terms and conditions</p>
+      <p>Guest Policies</p>
+      <p>Privacy Policy</p>
+      <p>Responsible Disclosure</p>
+    </div>
+  </div>
+  <div class="footer-sec3">
+    <div>
+      <h3>BlissfulAbodes Townhouse</h3>
+      <p>Your Friendly Neighbourhood Hotel</p>
+    </div>
+    <div>
+      <h3>BlissfulAbodes SilverKey</h3>
+      <p>Executive Stays</p>
+    </div>
+    <div>
+      <h3>BlissfulAbodes HOME</h3>
+      <p>Unlocking Homes</p>
+    </div>
+  </div>
+  <div class="footer-sec5">
+    <div>
+      <img src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/facebookIcon.png" alt="img" />
+      <img src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/InstagramIcon.png" alt="img" />
+      <img src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/TwitterIcon.png" alt="img" />
+      <img src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/MediaIcon.png" alt="img" />
+      <img src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/PinIcon.png" alt="img" />
+    </div>
+    <div>
+      <p>2013-2021 © Oravel Stays Private Limited</p>
+    </div>
+  </div>
+</div>
+
