@@ -1,0 +1,80 @@
+{
+  "hosts": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "hostStatus": true,
+      "location": "New York",
+      "about": "I am a superhost!",
+      "hostingSince": "2022-01-01",
+      "profile":"https://a0.muscache.com/im/pictures/user/acd97bc9-42f7-45cf-84d4-076add17e41a.jpg?im_w=240",
+      "properties": [
+        {
+          "id": 1,
+          "hostId": 1,
+          "name": "Cozy Apartment",
+          "propertyType": "Apartment",
+          "description": "A cozy apartment in the heart of the city",
+          "price": 100,
+          "availability": true,
+          "rating":4.2,
+          "image":"https://a0.muscache.com/im/pictures/miso/Hosting-26300485/original/ee94e6c1-6ebc-496e-af84-1502edd1b759.jpeg?im_w=720"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "hostStatus": false,
+      "location": "Los Angeles",
+      "about": "I love hosting guests!",
+      "hostingSince": "2022-03-01",
+      "profile":"https://a0.muscache.com/im/pictures/user/acd97bc9-42f7-45cf-84d4-076add17e41a.jpg?im_w=240",
+      "properties": [
+        {
+          "id": 2,
+          "hostId": 2,
+          "name": "Spacious Loft",
+          "propertyType": "Apartment",
+          "description": "A spacious loft in downtown",
+          "price": 200,
+          "availability": true,
+          "rating":4.2,
+          "image":"https://a0.muscache.com/im/pictures/miso/Hosting-26300485/original/ee94e6c1-6ebc-496e-af84-1502edd1b759.jpeg?im_w=720"
+        }
+      ]
+    }
+  ],
+  "guests": [
+    {
+      "id": 1,
+      "name": "Alice Johnson",
+      "gender": "Female",
+      "dateOfBirth": "1990-05-15",
+      "bio": "I love traveling and exploring new places"
+    },
+    {
+      "id": 2,
+      "name": "Bob Smith",
+      "gender": "Male",
+      "dateOfBirth": "1985-10-10",
+      "bio": "I enjoy outdoor activities"
+    }
+  ],
+  "bookings": [
+    {
+      "id": 1,
+      "propertyId": 1,
+      "guestId": 1,
+      "checkInDate": "2022-06-01",
+      "checkOutDate": "2022-06-07"
+    },
+    {
+      "id": 2,
+      "propertyId": 2,
+      "guestId": 2,
+      "checkInDate": "2022-07-15",
+      "checkOutDate": "2022-07-20"
+    }
+  ]
+}
