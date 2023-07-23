@@ -127,7 +127,7 @@ li {
 
 .locations {
   display: flex;
-  gap: 8px;
+  gap: 7px;
   background-color: white;
 }
 
@@ -193,7 +193,7 @@ li {
 
 /* --------------- Landing ------- */
 .landing-wrapper {
-    margin-top: 30px; 
+    margin-top: 60px; 
   }
 
 

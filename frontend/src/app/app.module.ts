@@ -6,11 +6,14 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { LandingComponent } from './landing/landing.component';
+import { HostDetailsComponent } from './property/property.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingComponent,
+    HostDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -18,7 +21,7 @@ import { LandingComponent } from './landing/landing.component';
     MatIconModule,
     BrowserAnimationsModule,
     RouterModule,
-    
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

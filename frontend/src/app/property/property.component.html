@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="card" *ngFor="let host of hosts">
+      <div class="card-body">
+        <h5 class="card-title">{{ host.name }}</h5>
+        <p class="card-text">Location: {{ host.location }}</p>
+        <p class="card-text">About: {{ host.about }}</p>
+        <p class="card-text">Hosting Since: {{ host.hostingSince }}</p>
+  
+        <div *ngIf="host.properties && host.properties.length > 0">
+          <h6 class="card-subtitle">Properties:</h6>
+          <div *ngFor="let property of host.properties">
+            <div class="property-card">
+              <h6 class="property-name">{{ property.name }}</h6>
+              <p class="property-type">Property Type: {{ property.propertyType }}</p>
+              <p class="property-description">{{ property.description }}</p>
+              <p class="property-price">Price: {{ property.price }}</p>
+              <p class="property-availability">Availability: {{ property.availability ? 'Available' : 'Not Available' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
