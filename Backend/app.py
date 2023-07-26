@@ -1,170 +1,361 @@
-from flask import Flask, jsonify, request
-from flask_pymongo import PyMongo
-from bson import ObjectId
+from flask import Flask, request, jsonify, session
+from pymongo import MongoClient
 from flask_cors import CORS
+from bson.objectid import ObjectId
+import bcrypt
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:4200"}})
+CORS(app) 
+app.secret_key = "ayushi"  
+app.config['SESSION_TYPE'] = 'filesystem'  
 
+MONGO_URI = "mongodb+srv://ayushi:ayushivashisth@cluster0.xzliwxo.mongodb.net/?retryWrites=true&w=majority"  
+DB_NAME = "blissful_abodes"  
 
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/blissful_abodes'
-mongo = PyMongo(app)
+# MongoDB setup
+def get_db():
+    client = MongoClient(MONGO_URI)
+    return client[DB_NAME]
 
+# Utility functions for password hashing and verification
+def hash_password(password):
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-# Hosts
+def verify_password(stored_hash, password):
+    return bcrypt.checkpw(password.encode('utf-8'), stored_hash)
 
-@app.route('/hosts', methods=['GET'])
-def get_hosts():
-    hosts = mongo.db.hosts.find()
-    return jsonify({'hosts': hosts}), 200
+# Property class
+class Property:
+    def __init__(self, name, hostingSince, status, about, description, price, image, profile, property_name, availability,rating, city, state, date):
+        self._id = ObjectId()
+        self.name = name
+        self.hostingSince=hostingSince
+        self.about = about
+        self.description = description
+        self.price = price
+        self.status = status
+        self.image = image
+        self.profile=profile
+        self.property_name=property_name
+        self.availability=availability
+        self.rating=rating
+        self.city=city
+        self.state=state
+        self.date=date
 
-@app.route('/hosts', methods=['POST'])
-def add_host():
-    host = request.json
-    host_id = mongo.db.hosts.insert_one(host).inserted_id
-    host['_id'] = str(host_id)
-    return jsonify({'host': host}), 201
+# Booking class
+class Booking:
+    def __init__(self,property_img, property_id, property_name, price, property_city, checkInDate, checkOutDate):
+        self._id = ObjectId()
+        self.property_id = property_id
+        self.property_name = property_name
+        self.property_price = price
+        self.property_city = property_city
+        self.property_image=property_img,
+        self.checkInDate = checkInDate
+        self.checkOutDate = checkOutDate
 
-@app.route('/hosts/<string:host_id>', methods=['GET'])
-def get_host(host_id):
-    host = mongo.db.hosts.find_one({'_id': ObjectId(host_id)})
-    if host:
-        return jsonify({'host': host}), 200
-    return jsonify({'message': 'Host not found'}), 404
+# Routes
+@app.route("/")
+def index():
+    return "Server running"
 
-@app.route('/hosts/<string:host_id>', methods=['PUT'])
-def update_host(host_id):
-    host = request.json
-    result = mongo.db.hosts.update_one({'_id': ObjectId(host_id)}, {'$set': host})
-    if result.modified_count > 0:
-        host['_id'] = host_id
-        return jsonify({'host': host}), 200
-    return jsonify({'message': 'Host not found'}), 404
+@app.route('/signup/host', methods=['POST'])
+def host_signup():
+    # implementation for host signup
+    db = get_db()
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+    if db.hosts.find_one({"email": email}):
+        return jsonify({"error": "Email already exists"}), 400
+    hashed_password = hash_password(password)
 
-@app.route('/hosts/<string:host_id>', methods=['DELETE'])
-def delete_host(host_id):
-    result = mongo.db.hosts.delete_one({'_id': ObjectId(host_id)})
-    if result.deleted_count > 0:
-        return jsonify({'message': 'Host deleted'}), 200
-    return jsonify({'message': 'Host not found'}), 404
+    host_id = db.hosts.insert_one({
+        "email": email,
+        "password": hashed_password,
+    }).inserted_id
 
+    return jsonify({"host_id": str(host_id)}), 201
 
-# Properties
+@app.route('/signup/guest', methods=['POST'])
+def guest_signup():
+    # implementation for guest signup
+    db = get_db()
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
 
-@app.route('/hosts/<string:host_id>/properties', methods=['GET'])
-def get_properties(host_id):
-    properties = mongo.db.properties.find({'host_id': host_id})
-    return jsonify({'properties': properties}), 200
+    if db.guests.find_one({"email": email}):
+        return jsonify({"error": "Email already exists"}), 400
 
-@app.route('/hosts/<string:host_id>/properties', methods=['POST'])
-def add_property(host_id):
-    property = request.json
-    property['host_id'] = host_id
-    property_id = mongo.db.properties.insert_one(property).inserted_id
-    property['_id'] = str(property_id)
-    return jsonify({'property': property}), 201
+    hashed_password = hash_password(password)
 
-@app.route('/hosts/<string:host_id>/properties/<string:property_id>', methods=['GET'])
-def get_property(host_id, property_id):
-    property = mongo.db.properties.find_one({'_id': ObjectId(property_id), 'host_id': host_id})
+    guest_id = db.guests.insert_one({
+        "email": email,
+        "password": hashed_password,
+    }).inserted_id
+
+    return jsonify({"guest_id": str(guest_id)}), 201
+
+@app.route('/login/host', methods=['POST'])
+def host_login():
+    # implementation for host login
+    db = get_db()
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+
+    host = db.hosts.find_one({"email": email})
+
+    if not host:
+        return jsonify({"error": "Invalid credentials"}), 401
+
+    if not verify_password(host['password'], password):
+        return jsonify({"error": "Invalid credentials"}), 401
+
+    session['user_role'] = 'host'
+
+    return jsonify({"message": "Host login successful", "host_id": str(host["_id"])}), 200
+
+@app.route('/login/guest', methods=['POST'])
+def guest_login():
+    # implementation for guest login
+    db = get_db()
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+
+    guest = db.guests.find_one({"email": email})
+
+    if not guest:
+        return jsonify({"error": "Invalid credentials"}), 401
+
+    if not verify_password(guest['password'], password):
+        return jsonify({"error": "Invalid credentials"}), 401
+
+    session['user_role'] = 'guest'
+
+    return jsonify({"message": "Guest login successful"}), 200
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    # implementation for logout
+    session.pop('user_role', None)
+    return jsonify({"message": "Logout successful"}), 200
+
+@app.route("/properties", methods=["GET"])
+def get_all_properties():
+    db = get_db()
+    #  implementation for getting all properties
+    sort_by = request.args.get('sort_by', 'price')  
+    sort_order = int(request.args.get('sort_order', 1)) 
+    page = int(request.args.get('page', 1)) 
+    per_page = int(request.args.get('per_page', 9)) 
+    title_filter = request.args.get('property_name', '')
+    property_type_filter = request.args.get('propertyType', '')
+    state_filter = request.args.get('state', '')
+    filter_query = {}
+    if title_filter:
+        filter_query['property_name'] = {'$regex': title_filter, '$options': 'i'} 
+    if property_type_filter:
+        filter_query['propertyType'] = property_type_filter
+    if state_filter:
+        filter_query['location'] = state_filter
+
+    total_properties = db.properties.count_documents(filter_query)
+
+    total_pages = (total_properties - 1) // per_page + 1
+
+    if page < 1:
+        page = 1
+    elif page > total_pages:
+        page = total_pages
+    skip = (page - 1) * per_page
+    limit = per_page
+
+    if skip < 0:
+        skip = 0
+
+    properties = db.properties.find(filter_query).skip(skip).limit(limit)
+
+    if sort_by:
+        properties = properties.sort(sort_by, sort_order)
+
+    res = []
+    for property in properties:
+        res.append({
+            "id": str(property["_id"]),
+            "name": str(property['name']),
+            "location": str(property['location']),
+            "hostingSince": str(property['hostingSince']),
+            "about": str(property['about']),
+            "description": str(property['description']),
+            "price": str(property['price']),
+            "status": str(property['status']),
+            "image": str(property['image']), 
+            "profile": str(property['profile']),
+            "property_name": str(property['property_name']),
+            "availability": str(property['availability']),
+            "rating": str(property['rating']),
+            "city": str(property['city']),
+            "state":str(property['state']),
+            "date": str(property['date']),
+        })
+
+    return jsonify(res)
+
+@app.route("/properties/<string:property_id>", methods=["GET"])
+def get_property(property_id):
+    #  implementation for getting a specific property
+    db = get_db()
+    property = db.properties.find_one({"_id": ObjectId(property_id)})
     if property:
-        return jsonify({'property': property}), 200
-    return jsonify({'message': 'Property not found'}), 404
+        res = {
+            "id": str(property["_id"]),
+            "name": str(property['name']),
+            "location": str(property['location']),
+            "hostingSince": str(property['hostingSince']),
+            "about": str(property['about']),
+            "description": str(property['description']),
+            "price": str(property['price']),
+            "status": str(property['status']),
+            "image": str(property['image']), 
+            "profile": str(property['profile']),
+            "property_name": str(property['property_name']),
+            "availability": str(property['availability']),
+            "rating": str(property['rating']),
+            "city": str(property['city']),
+            "state": str(property['state']),
+            "date": str(property['date']) 
+            
+        }
+        return jsonify(res)
+    return jsonify({"message": "Property not found"}), 404
 
-@app.route('/hosts/<string:host_id>/properties/<string:property_id>', methods=['PUT'])
-def update_property(host_id, property_id):
-    property = request.json
-    result = mongo.db.properties.update_one({'_id': ObjectId(property_id), 'host_id': host_id}, {'$set': property})
-    if result.modified_count > 0:
-        property['_id'] = property_id
-        return jsonify({'property': property}), 200
-    return jsonify({'message': 'Property not found'}), 404
+@app.route("/properties", methods=["POST"])
+def create_property():
+    #  implementation for creating a property
+    db = get_db()
+    data = request.get_json()
+    property = Property(
+        name=data["name"],
+        hostingSince=data["hostingSince"],
+        about=data["about"],
+        description=data["description"],
+        price=data["price"],
+        status=data["status"],
+        image=data["image"],  
+        profile=data["profile"],
+        property_name=data["property_name"],
+        availability=data["availability"],
+        rating=data["rating"],
+        city=data["city"],
+        state=data["state"],
+        date=data["date"],
+        
+    )
+    db.properties.insert_one(property.__dict__)
+    return jsonify({"message": "Property created successfully"}), 201
 
-@app.route('/hosts/<string:host_id>/properties/<string:property_id>', methods=['DELETE'])
-def delete_property(host_id, property_id):
-    result = mongo.db.properties.delete_one({'_id': ObjectId(property_id), 'host_id': host_id})
+@app.route("/properties/<string:property_id>", methods=["PUT"])
+def update_property(property_id):
+    #  implementation for updating a property
+    db = get_db()
+    data = request.get_json()
+    db.properties.update_one({"_id": ObjectId(property_id)}, {"$set": data})
+    return jsonify({"message": "Property updated successfully"})
+
+@app.route("/properties/<string:property_id>", methods=["DELETE"])
+def delete_property(property_id):
+    #  implementation for deleting a property
+    db = get_db()
+    result = db.properties.delete_one({"_id": ObjectId(property_id)})
     if result.deleted_count > 0:
-        return jsonify({'message': 'Property deleted'}), 200
-    return jsonify({'message': 'Property not found'}), 404
+        return jsonify({"message": "Property deleted successfully"})
+    return jsonify({"message": "Property not found"}), 404
 
+@app.route("/properties/book", methods=["POST"])
+def post_property_to_book_collection():
+    #  implementation for posting a property to the book collection
+    db = get_db()
+    data = request.get_json()
+    property_id = data.get('property_id')
+    property_name = data.get('property_name')
+    property_price = data.get('property_price')
+    property_state = data.get('property_state')
+    property_image = data.get('property_image') 
+    checkInDate = data.get('checkInDate')
+    checkOutDate = data.get('checkOutDate')
 
-# Guests
+    booking = Booking(
+        property_id=property_id,
+        property_name=property_name,
+        property_price=property_price,
+        property_state=property_state,
+        property_image=property_image,  
+        checkInDate=checkInDate,
+        checkOutDate=checkOutDate
+    )
+    booking_id = db.book.insert_one(booking.__dict__).inserted_id
 
-@app.route('/guests', methods=['GET'])
-def get_guests():
-    guests = mongo.db.guests.find()
-    return jsonify({'guests': guests}), 200
+    if property_id:
+        db.properties.update_one({"_id": ObjectId(property_id)}, {"$set": {"status": False}})
 
-@app.route('/guests', methods=['POST'])
-def add_guest():
-    guest = request.json
-    guest_id = mongo.db.guests.insert_one(guest).inserted_id
-    guest['_id'] = str(guest_id)
-    return jsonify({'guest': guest}), 201
+    return jsonify({"booking_id": str(booking_id)}), 201
 
-@app.route('/guests/<string:guest_id>', methods=['GET'])
-def get_guest(guest_id):
-    guest = mongo.db.guests.find_one({'_id': ObjectId(guest_id)})
-    if guest:
-        return jsonify({'guest': guest}), 200
-    return jsonify({'message': 'Guest not found'}), 404
+@app.route("/properties/book", methods=["GET"])
+def get_all_book_data():
+    #  implementation for getting all booking data
+    db = get_db()
+    book_data = db.book.find()
+    res = []
+    for book_entry in book_data:
+        res.append({
+            "booking_id": str(book_entry["_id"]),
+            "property_id": str(book_entry.get("property_id")),
+            "property_name": str(book_entry.get("property_name")),
+            "property_price": str(book_entry.get("property_price")),
+            "property_state": str(book_entry.get("property_state")),
+            "property_image":str(book_entry.get("property_image")),
+            "checkInDate": str(book_entry.get("checkInDate")),
+            "checkOutDate": str(book_entry.get("checkOutDate"))
+        })
+    return jsonify(res)
 
-@app.route('/guests/<string:guest_id>', methods=['PUT'])
-def update_guest(guest_id):
-    guest = request.json
-    result = mongo.db.guests.update_one({'_id': ObjectId(guest_id)}, {'$set': guest})
-    if result.modified_count > 0:
-        guest['_id'] = guest_id
-        return jsonify({'guest': guest}), 200
-    return jsonify({'message': 'Guest not found'}), 404
+@app.route("/properties/book/<string:booking_id>", methods=["GET"])
+def get_book_data(booking_id):
+    #  implementation for getting a specific booking data
+    db = get_db()
+    book_entry = db.book.find_one({"_id": ObjectId(booking_id)})
+    if book_entry:
+        res = {
+            "booking_id": str(book_entry["_id"]),
+            "property_id": str(book_entry.get("property_id")),
+            "property_name": str(book_entry.get("property_name")),
+            "property_price": str(book_entry.get("property_price")),
+            "property_state": str(book_entry.get("property_state")),
+            "property_image":str(book_entry.get("property_image")),
+            "checkInDate": str(book_entry.get("checkInDate")),
+            "checkOutDate": str(book_entry.get("checkOutDate"))
+        }
+        return jsonify(res)
+    return jsonify({"message": "Booking data not found"}), 404
 
-@app.route('/guests/<string:guest_id>', methods=['DELETE'])
-def delete_guest(guest_id):
-    result = mongo.db.guests.delete_one({'_id': ObjectId(guest_id)})
-    if result.deleted_count > 0:
-        return jsonify({'message': 'Guest deleted'}), 200
-    return jsonify({'message': 'Guest not found'}), 404
+@app.route("/properties/book/<string:booking_id>", methods=["DELETE"])
+def delete_book_data(booking_id):
+    # implementation for deleting a booking data
+    db = get_db()
+    book_entry = db.book.find_one({"_id": ObjectId(booking_id)})
+    if book_entry:
+        property_id = book_entry.get("property_id")
 
-
-# Bookings
-
-@app.route('/bookings', methods=['GET'])
-def get_bookings():
-    bookings = mongo.db.bookings.find()
-    return jsonify({'bookings': bookings}), 200
-
-@app.route('/bookings', methods=['POST'])
-def add_booking():
-    booking = request.json
-    booking_id = mongo.db.bookings.insert_one(booking).inserted_id
-    booking['_id'] = str(booking_id)
-    return jsonify({'booking': booking}), 201
-
-@app.route('/bookings/<string:booking_id>', methods=['GET'])
-def get_booking(booking_id):
-    booking = mongo.db.bookings.find_one({'_id': ObjectId(booking_id)})
-    if booking:
-        return jsonify({'booking': booking}), 200
-    return jsonify({'message': 'Booking not found'}), 404
-
-@app.route('/bookings/<string:booking_id>', methods=['PUT'])
-def update_booking(booking_id):
-    booking = request.json
-    result = mongo.db.bookings.update_one({'_id': ObjectId(booking_id)}, {'$set': booking})
-    if result.modified_count > 0:
-        booking['_id'] = booking_id
-        return jsonify({'booking': booking}), 200
-    return jsonify({'message': 'Booking not found'}), 404
-
-@app.route('/bookings/<string:booking_id>', methods=['DELETE'])
-def delete_booking(booking_id):
-    result = mongo.db.bookings.delete_one({'_id': ObjectId(booking_id)})
-    if result.deleted_count > 0:
-        return jsonify({'message': 'Booking deleted'}), 200
-    return jsonify({'message': 'Booking not found'}), 404
-
+        result = db.book.delete_one({"_id": ObjectId(booking_id)})
+        if result.deleted_count > 0:
+            if property_id:
+                db.properties.update_one({"_id": ObjectId(property_id)}, {"$set": {"status": True}})
+            return jsonify({"message": "Booking data deleted successfully"})
+    return jsonify({"message": "Booking data not found"}), 404
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-

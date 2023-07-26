@@ -12,7 +12,7 @@
         {
           "id": 1,
           "hostId": 1,
-          "name": "Cozy Apartment",
+          "property_name": "Cozy Apartment",
           "propertyType": "Apartment",
           "description": "A cozy apartment in the heart of the city",
           "price": 100,
@@ -34,7 +34,7 @@
         {
           "id": 2,
           "hostId": 2,
-          "name": "Spacious Loft",
+          "property_name": "Spacious Loft",
           "propertyType": "Apartment",
           "description": "A spacious loft in downtown",
           "price": 200,
