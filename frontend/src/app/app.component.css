@@ -15,15 +15,16 @@ li {
     top: 0;
     width: 100%;
     z-index: 2;
+    background-color: #7e00b2;
 }
 
 .navbar {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: white;
+  /* background-color: white; */
   padding: 10px;
-  color: black;
+  color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   
 }
@@ -125,27 +126,33 @@ li {
 
 /* ------------ SEcond Navbar --------------- */
 
-.locations {
+.states {
+  width: 100%;
   display: flex;
-  gap: 7px;
-  background-color: white;
+  /* gap: 5px; */
+  background-color: #7e00b2;
+  
+  color: white;
 }
 
 .down {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  padding: 8px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
+  padding: 17px;
+  /* background-color: #f9f9f9; */
+  /* border: 1px solid #ddd; */
+  /* border-radius: 4px; */
+  /* transition: background-color 0.2s ease; */
 }
 
 .down p {
-  font-size: 1.2rem;
+  width: auto;
+  font-size: 16px;
   font-weight: 600;
-  margin-right: 10px;
+  /* border: 1px solid #ddd; */
+  /* margin-right: 10px; */
 }
 
 .down mat-icon {
@@ -200,9 +207,9 @@ li {
 /* ----------- Footer ------------- */
 
 .footer {
-    background: #848a8c;
+    background: #d3c6d7;
     padding: 50px 80px;
-    color: #fff
+    color: black
 }
 
 .footer-sec1 {

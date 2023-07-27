@@ -1,43 +1,247 @@
-.container {
-    display: flex;
-    flex-wrap: wrap;
+/* property-page.component.css */
+
+/* General styles */
+.property-page {
+  width: 90%;
+  margin: auto;
+  padding: 20px;
+  margin-top: 100px;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.filter-dropdowns select {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  background-color: #f7f7f7;
+  transition: border-color 0.2s ease;
+}
+
+.filter-dropdowns select:last-child {
+  margin-left: 10px;
+}
+
+.filter-dropdowns select:focus {
+  border-color: #007bff;
+}
+
+.sorting {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sorting span {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.sorting label {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.sorting input[type="radio"] {
+  margin-right: 5px;
+}
+
+/* Property grid */
+.property-grid {
+  width: 90%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.property-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  position: relative;
+}
+
+.property-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.property-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.property-card:hover .property-image {
+  transform: scale(1.1);
+}
+
+.property-details {
+  padding: 20px;
+}
+
+.property-details h1 {
+  margin: 10px 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  transition: -webkit-line-clamp 0.3s ease;
+}
+
+.property-card:hover .property-details h1 {
+  -webkit-line-clamp: 3;
+}
+
+.property-details p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.property-details .availability {
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.property-details .not-available {
+  color: red;
+}
+.property-card .availability.not-available {
+  color: red;
+}
+
+
+.property-details .available {
+  color: black;
+}
+
+.property-details .info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.property-details .price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.property-details .star-ratings {
+  display: flex;
+  align-items: center;
+  position: relative;
+  color: #fff;
+}
+
+.property-details .star-icon {
+  font-size: 20px;
+  margin-right: 2px;
+  color: #fff;
+  border: 1px solid #ccc;
+  padding: 2px;
+  border-color: #007bff;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  animation: fadeInOut 0.3s ease-in-out;
+}
+
+.property-details .star-icon.filled {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+  box-shadow: 0 0 5px #007bff;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
   }
-  
-  .card {
-    width: 300px;
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
+  100% {
+    opacity: 1;
   }
-  
-  .property-card {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px;
-    margin-top: 5px;
-    background-color: #f9f9f9;
-  }
-  
-  .property-name {
-    font-weight: bold;
-  }
-  
-  .property-type {
-    font-style: italic;
-    margin-bottom: 5px;
-  }
-  
-  .property-description {
-    margin-bottom: 5px;
-  }
-  
-  .property-price {
-    margin-bottom: 5px;
-  }
-  
-  .property-availability {
-    font-weight: bold;
-    color: green;
-  }
-  
+}
+
+/* "Book Now" Button */
+.property-card .book-btn {
+  position: absolute;
+  bottom: 86px;
+  right: 20px;
+  width: 100px;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.property-card:hover .book-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+  animation: slideInFromLeft 0.5s ease-in-out;
+}
+
+.pagination-btn:last-child {
+  animation: slideInFromRight 0.5s ease-in-out;
+}
+
+/* Pagination Button Hover Animation */
+.pagination-btn:hover {
+  background-color: #4f7eaf;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Pagination Number */
+.pagination span {
+  margin: 0 10px;
+  font-size: 16px;
+}

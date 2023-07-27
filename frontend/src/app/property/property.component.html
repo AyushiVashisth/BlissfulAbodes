@@ -1,24 +1,59 @@
-<div class="container">
-    <div class="card" *ngFor="let host of hosts">
-      <div class="card-body">
-        <h5 class="card-title">{{ host.name }}</h5>
-        <p class="card-text">Location: {{ host.location }}</p>
-        <p class="card-text">About: {{ host.about }}</p>
-        <p class="card-text">Hosting Since: {{ host.hostingSince }}</p>
-  
-        <div *ngIf="host.properties && host.properties.length > 0">
-          <h6 class="card-subtitle">Properties:</h6>
-          <div *ngFor="let property of host.properties">
-            <div class="property-card">
-              <h6 class="property-name">{{ property.name }}</h6>
-              <p class="property-type">Property Type: {{ property.propertyType }}</p>
-              <p class="property-description">{{ property.description }}</p>
-              <p class="property-price">Price: {{ property.price }}</p>
-              <p class="property-availability">Availability: {{ property.availability ? 'Available' : 'Not Available' }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
+<!-- property-page.component.html -->
+<div class="property-page">
+  <div class="sorting">
+    <span>Sort by Price:</span>
+    <label>
+      <input type="radio" [(ngModel)]="sortOrder" [value]="1" (change)="toggleSortDirection()"> Ascending
+    </label>
+    <label>
+      <input type="radio" [(ngModel)]="sortOrder" [value]="-1" (change)="toggleSortDirection()"> Descending
+    </label>
+    <!-- Add other sorting options as needed -->
+  </div>
+  <div class="filters">
+    <div class="filter-dropdowns">
+      <select [(ngModel)]="propertyAvailabilityFilter" (change)="applyFilters()">
+        <option value="">All Availability</option>
+        <option [value]="true">Available</option>
+        <option [ngValue]="false">Not Available</option>
+        <!-- Add other Availability options as needed -->
+      </select>  
+      
+
+      <!-- <select [(ngModel)]="ratingFilter" (change)="applyFilters()">
+        <option value="">All Rating</option>
+        <option value="low-to-high">low-to-high</option>
+        <option value="high-to-low">high-to-low</option>
+        <!-- Add other locations as needed 
+      </select> -->
     </div>
   </div>
-  
+</div>
+
+<div class="property-grid">
+  <div class="property-card" *ngFor="let property of properties">
+    <img [src]="property.image" alt="Property Image" class="property-image">
+    <div class="property-details">
+      <h1>{{ property.property_name }}</h1>
+      <p class="location">{{ property.state }}</p>
+      <p class="description">{{ property.description }}</p>
+      <p class="availability" >{{ property.availability ? 'Available' : 'Not Available' }}</p>
+
+      <div class="info">
+        <p class="price">Price: {{ property.price }}</p>
+        <div class="star-ratings">
+          <span class="star-icon" *ngFor="let star of getStarArray(property.rating)" [ngClass]="{'filled': star === 100}">
+            <mat-icon>star</mat-icon>
+          </span>
+        </div>
+      </div>
+      <button class="book-btn" (click)="viewPreview(property.id)">Book Now</button>
+    </div>
+  </div>
+</div>
+
+<div class="pagination">
+  <button (click)="prevPage()" [disabled]="currentPage === 1" class="pagination-btn">Previous</button>
+  <span>{{ currentPage }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage === 5" class="pagination-btn">Next</button>
+</div>

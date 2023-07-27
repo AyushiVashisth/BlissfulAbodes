@@ -1,18 +1,127 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PropertyService } from '../services/property.service';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-property',
   templateUrl: './property.component.html',
   styleUrls: ['./property.component.css'],
 })
-export class HostDetailsComponent implements OnInit {
-  hosts: any[] = [];
+export class PropertyComponent implements OnInit {
+  properties: any[] = [];
+  currentPage: number = 1;
+  totalPages: number = 1;
+  perPage: number = 9;
+  nameFilter: string = '';
+  propertyNameFilter: string = '';
+  stateFilter: string = '';
+  sortField: string = 'price';
+  sortOrder: number = 1;
+  propertyAvailabilityFilter: boolean | null = null; // Use boolean | null instead of any
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private propertyService: PropertyService,
+    private http: HttpClient,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.http.get<any>('http://localhost:5000/hosts').subscribe((data) => {
-      this.hosts = data.hosts;
+    this.route.queryParams.subscribe((params) => {
+      this.stateFilter = params['state'] || '';
+      this.getProperties();
+    });
+  }
+
+  getProperties(): void {
+    this.propertyService
+      .getAllProperties(
+        this.currentPage,
+        this.perPage,
+        this.nameFilter,
+        this.propertyNameFilter,
+        this.stateFilter,
+        this.sortOrder, // Swap sortField with sortOrder
+        this.sortField, // Swap sortOrder with sortField
+        this.propertyAvailabilityFilter || false
+      )
+      .subscribe(
+        (response: any) => {
+          this.properties = response;
+          this.totalPages = response.totalPages;
+        },
+        (error: any) => {
+          console.error('Error fetching properties:', error);
+        }
+      );
+  }
+
+  applyFilters(): void {
+    this.currentPage = 1;
+    this.getProperties();
+  }
+  
+  
+
+  nextPage(): void {
+    this.currentPage++;
+    this.getProperties();
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.getProperties();
+    }
+  }
+
+  viewPreview(propertyId: string): void {
+    this.router.navigate(['/preview', propertyId]);
+  }
+
+  toggleSortDirection(): void {
+    this.getProperties();
+  }
+
+  getStarArray(rating: number): number[] {
+    const wholeStars = Math.floor(rating);
+    const fractionalStar = rating - wholeStars;
+
+    const stars: number[] = [];
+
+    for (let i = 1; i <= 5; i++) {
+      if (i <= wholeStars) {
+        // Full star
+        stars.push(100); // 100 represents a fully filled star
+      } else if (i === wholeStars + 1 && fractionalStar > 0) {
+        // Fractional star
+        stars.push(fractionalStar * 100);
+      } else {
+        // Empty star
+        stars.push(0);
+      }
+    }
+
+    return stars;
+  }
+
+  // Function to show SweetAlert success notification
+  showSuccessAlert(message: string): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: message,
+    });
+  }
+
+  // Function to show SweetAlert error notification
+  showErrorAlert(message: string): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: message,
     });
   }
 }

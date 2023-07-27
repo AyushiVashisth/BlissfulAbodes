@@ -1,9 +1,10 @@
 //app.component.ts
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
-interface Location {
+interface State {
   name: string;
-  more: string[];
   showDropdown: boolean;
 }
 
@@ -13,207 +14,94 @@ interface Location {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  activeLocation: Location | null = null;
+  activeState: State | null = null;
   onLoginClicked() {
     console.log('Login button clicked');
   }
+  searchQuery: string = '';
+  properties: any[] = [];
 
-  onSearch(location: string) {
-    console.log('Search location:', location);
+  constructor(private http: HttpClient, private router: Router) {}
+
+  onHome(): void {
+    this.router.navigate(['/']);
   }
-  locations: Location[] = [
-    {
-      name: 'Goa',
-      more: [
-        'Popular Localities',
-        'Baga Beach North Goa',
-        'Panjim',
-        'Madgaon',
-        'Calangute',
-        'Vasco Da Gama',
-        'Porvorim',
-        'South Goa',
-        'Madgaon Railway Station',
-        'Mapusa',
-        'Panaji',
-      ],
-      showDropdown: false,
-    },
-    {
-      name: 'Mumbai',
-      more: [
-        'Popular Localities',
-        'Andheri East',
-        'Vashi',
-        'Thane',
-        'Dadar',
-        'Andheri',
-        'Panvel',
-        'Bandra',
-        'Saki Naka',
-        'Malad West',
-      ],
-      showDropdown: false,
-    },
+
+  onState(): void {
+    this.router.navigate(['/property']);
+  }
+  
+  onSearch(): void {
+    // Navigate to the '/property' route and pass the search query as a parameter
+    this.router.navigate(['/property'], {
+      queryParams: { state: this.searchQuery },
+    });
+  }
+  states: State[] = [
     {
       name: 'Delhi',
-      more: [
-        'Popular Localities',
-        'Mahipalpur',
-        'New Delhi Railway Station',
-        'Paharganj',
-        'Karol Bagh Metro Station',
-        'Rohini',
-        'Dwarka, New Delhi',
-        'Indira Gandhi International Airport',
-        'Laxmi Nagar',
-        'Lajpat Nagar',
-      ],
       showDropdown: false,
     },
     {
-      name: 'Bangalore',
-      more: [
-        'Popular Localities',
-        'Koramangala',
-        'Majestic',
-        'Madiwala',
-        'Marathahalli',
-        'Hsr Layout',
-        'Indiranagar',
-        'Kempegowda International Airport',
-        'Whitefield',
-        'Jp Nagar',
-        'Jayanagar',
-      ],
+      name: 'Uttar Pradesh',
       showDropdown: false,
     },
     {
-      name: 'Hyderabad',
-      more: [
-        'Popular Localities',
-        'Secunderabad  Railway Station',
-        'Gachibowli ',
-        'Madhapur',
-        'LB Nagar',
-        'Kukatpally',
-        'Ameerpet',
-        'Hitech City',
-        'Kondapur',
-        'Begumpet',
-        'Banjara Hills',
-      ],
+      name: 'Tamil Nadu',
       showDropdown: false,
     },
     {
-      name: 'Chennai',
-      more: [
-        'Popular Localities',
-        'Mount Road',
-        'Chennai Central Railway Station',
-        'Ecr East Coast Road',
-        'T Nagar',
-        'Anna Nagar',
-        'Velachery',
-        'Chennai International Airport',
-        'Koyambedu',
-        'Guindy',
-        'Tambaram',
-      ],
+      name: 'Telangana',
       showDropdown: false,
     },
     {
-      name: 'Gurgaon',
-      more: [
-        'Popular Localities',
-        'Huda City Center Metro',
-        'Mg Road',
-        'Gurgaon Bus Stand',
-        'Sector 14',
-        'DLF Phase 3',
-        'Sector 29',
-        'Medanta Hospital',
-        'Sector 38',
-        'Iffco Chowk',
-        'Gurgaon Palam Vihar',
-      ],
+      name: 'Karnataka',
       showDropdown: false,
     },
     {
-      name: 'Kolkata',
-      more: [
-        'Popular Localities',
-        'New Town',
-        'Howrah Railway Station',
-        'Salt Lake City',
-        'Kolkata International Airport',
-        'Park Street',
-        'Sealdah Railway Station',
-        'Dum Dum',
-        'Esplanade Metro Station',
-        'Sector 5 Salt Lake City',
-        'Dum Dum Airport 1 No. Gate',
-      ],
+      name: 'Kerala',
       showDropdown: false,
     },
     {
-      name: 'Noida',
-      more: [
-        'Popular Localities',
-        'Sector 62',
-        'Sector 18',
-        'Pari Chowk',
-        'Sector 15',
-        'Greater Noida',
-        'Noida City Centre',
-        'Sector 51',
-        'Sector 66',
-        'Gaziabad',
-        'Botanical Garden',
-      ],
+      name: 'West Bengal',
       showDropdown: false,
     },
     {
-      name: 'Pune',
-      more: [
-        'Popular Localities',
-        'Pimpri Chinchwad',
-        'Viman Nagar',
-        'Shivaji Nagar',
-        'Baner',
-        'Pune Railway Station',
-        'Hinjewadi',
-        'Kharadi',
-        'Wakad',
-        'Hadapsar',
-        'Katraj',
-      ],
+      name: 'Gujarat',
       showDropdown: false,
     },
     {
-      name: 'Puri',
-      more: [
-        'Popular Localities',
-        'Baga Beach North Goa',
-        'Panjim',
-        'Madgaon',
-        'Calangute',
-        'Vasco Da Gama',
-        'Porvorim',
-        'South Goa',
-        'Madgaon Railway Station',
-        'Mapusa',
-        'Panaji',
-      ],
+      name: 'Haryana',
+      showDropdown: false,
+    },
+    {
+      name: 'Chandigarh',
+      showDropdown: false,
+    },
+    {
+      name: 'Assam',
+      showDropdown: false,
+    },
+    {
+      name: 'Punjab',
+      showDropdown: false,
+    },
+    {
+      name: 'Maharashtra',
       showDropdown: false,
     },
   ];
 
-  toggleDropdown(location: Location | null): void {
-    if (this.activeLocation === location) {
-      this.activeLocation = null;
+  toggleDropdown(state: State | null): void {
+    if (this.activeState === state) {
+      this.activeState = null;
     } else {
-      this.activeLocation = location;
+      this.activeState = state;
+      if (state) {
+        this.router.navigate(['/property'], {
+          queryParams: { state: state.name },
+        });
+      }
     }
   }
 }

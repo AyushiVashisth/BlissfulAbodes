@@ -1,16 +1,40 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+// // property-card.component.ts
+// import { Component, OnInit } from '@angular/core';
+// import { HttpClient } from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ApiService {
-  private apiUrl = 'http://localhost:5000';
+// interface Property {
+//   id: number;
+//   name: string;
+//   propertyType: string;
+//   description: string;
+//   price: number;
+//   availability: boolean;
+//   rating: number;
+//   image: string;
+// }
 
-  constructor(private http: HttpClient) {}
+// @Component({
+//   selector: 'app-property-card',
+//   templateUrl: './property-card.component.html',
+//   styleUrls: ['./property-card.component.css']
+// })
+// export class PropertyCardComponent implements OnInit {
+//   hosts: any[]; 
 
-  getHost(hostId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/hosts/${hostId}`);
-  }
-}
+//   constructor(private http: HttpClient) { }
+
+//   ngOnInit() {
+//     this.getHosts();
+//   }
+
+//   getHosts() {
+//     this.http.get<any[]>('http://localhost:5000/hosts').subscribe(
+//       (response) => {
+//         this.hosts = response.hosts;
+//       },
+//       (error) => {
+//         console.error('Error fetching hosts:', error);
+//       }
+//     );
+//   }
+// }

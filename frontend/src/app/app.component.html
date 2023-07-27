@@ -2,66 +2,51 @@
 <!-- BlissfulAbodes -->
 <!-- ----------------- Navbar ----------- -->
 <div id="navbar">
-<nav class="navbar">
-  <div class="left-side">
-    <div class="logo-container">
-      <span class="logo-text">Blissful</span
-      ><span class="logo-subtext">Abodes</span>
+  <nav class="navbar">
+    <div class="left-side">
+      <div class="logo-container" (click)="onHome()">
+        <span class="logo-text">Blissful</span
+        ><span class="logo-subtext">Abodes</span>
+      </div>
     </div>
-  </div>
-  <div class="middle">
-    <div class="InputContainer">
-      <input
-        type="text"
-        name="text"
-        class="input"
-        id="input"
-        placeholder="Search"
-      />
-      <label for="input" class="labelforsearch">
-        <mat-icon class="searchIcon">search</mat-icon>
-      </label>
-      <div class="border"></div>
-      <button class="micButton">
-        <mat-icon class="micIcon">mic</mat-icon>
+    <div class="middle">
+      <div class="InputContainer">
+        <input
+          type="text"
+          name="text"
+          class="input"
+          id="input"
+          [(ngModel)]="searchQuery"
+          (keyup)="onSearch()"
+          placeholder="Search"
+        />
+        <label for="input" class="labelforsearch">
+          <mat-icon class="searchIcon">search state...</mat-icon>
+        </label>
+        <div class="border"></div>
+        <button class="micButton">
+          <mat-icon class="micIcon">mic</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="right-side">
+      <mat-icon>account_circle</mat-icon>
+      <button class="login-btn" (click)="onLoginClicked()">
+        Login / Sign in
       </button>
     </div>
-  </div>
-  <div class="right-side">
-    <mat-icon>account_circle</mat-icon>
-    <button class="login-btn" (click)="onLoginClicked()">
-      Login / Sign in
-    </button>
-  </div>
-</nav>
-<div class="locations">
-  <div *ngFor="let location of locations">
-    <div class="down" (click)="toggleDropdown(location)">
-      <p>{{ location.name }}</p>
-      <mat-icon>
-        {{
-          location === activeLocation
-            ? "keyboard_arrow_up"
-            : "keyboard_arrow_down"
-        }}
-      </mat-icon>
+  </nav>
+  <div class="states">
+    <div *ngFor="let state of states">
+      <div class="down" (click)="toggleDropdown(state)">
+        <p>{{ state.name }}</p>
+      </div>
     </div>
-
-    <div
-      *ngIf="location === activeLocation"
-      class="dropdown"
-      (mouseenter)="toggleDropdown(location)"
-      (mouseleave)="toggleDropdown(null)"
-    >
-      <p>Popular Localities</p>
-      <p *ngFor="let item of location.more">{{ item }}</p>
+    <div class="all-cities down" (click)="onState()">
+      <p>All Cities</p>
+      <mat-icon>fast_forward</mat-icon>
     </div>
   </div>
-  <div class="all-cities down">
-    <p>All Cities</p>
-    <mat-icon>fast_forward</mat-icon>
-  </div>
-</div>
 </div>
 
 <!-- ... -->
@@ -86,7 +71,10 @@
     <div>
       <p>Join our network and grow your business!</p>
       <button>
-        <img src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/property.png" alt="property" />
+        <img
+          src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/property.png"
+          alt="property"
+        />
         List your property
       </button>
     </div>
@@ -95,8 +83,14 @@
     <div>
       <p>Download BlissfulAbodes app for exciting offers.</p>
       <br />
-      <img src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/appstore.png" alt="applestore" />
-      <img src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/playstored.png" alt="playstored" />
+      <img
+        src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/appstore.png"
+        alt="applestore"
+      />
+      <img
+        src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/playstored.png"
+        alt="playstored"
+      />
     </div>
     <div>
       <p>About Us</p>
@@ -131,15 +125,29 @@
   </div>
   <div class="footer-sec5">
     <div>
-      <img src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/facebookIcon.png" alt="img" />
-      <img src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/InstagramIcon.png" alt="img" />
-      <img src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/TwitterIcon.png" alt="img" />
-      <img src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/MediaIcon.png" alt="img" />
-      <img src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/PinIcon.png" alt="img" />
+      <img
+        src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/facebookIcon.png"
+        alt="img"
+      />
+      <img
+        src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/InstagramIcon.png"
+        alt="img"
+      />
+      <img
+        src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/TwitterIcon.png"
+        alt="img"
+      />
+      <img
+        src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/MediaIcon.png"
+        alt="img"
+      />
+      <img
+        src="https://oyorooms-react-clone-dvanshukumawat.vercel.app/Images/PinIcon.png"
+        alt="img"
+      />
     </div>
     <div>
       <p>2013-2021 © Oravel Stays Private Limited</p>
     </div>
   </div>
 </div>
-
