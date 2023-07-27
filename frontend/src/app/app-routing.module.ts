@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { LandingComponent } from './landing/landing.component';
 import { PropertyComponent } from './property/property.component';
 import { LoginRegisterComponent } from './Login/login.component';
+import { BookPropertyComponent } from './bookProperty/bookProperty.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'property', component: PropertyComponent },
   { path: 'login', component: LoginRegisterComponent},
+  { path: "bookProperty/:id", component: BookPropertyComponent},
   { path: '', redirectTo: '/', pathMatch: 'full' },
 ];
 

@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="hero-section">
+    <h1 class="hero-title">Welcome to BlissfulAbodes Hotel</h1>
+    <img src="https://th.bing.com/th/id/R.f476911fbaffee3dd594b5120f134d4a?rik=Hy8qFpaiSOMFWw&riu=http%3a%2f%2fwww.americaninnmeridiantx.com%2fimg%2fresevation.jpg&ehk=w1%2bHEITB4q7wmD0o4swlnKxBcdwkx7SsVqFhkbczOzY%3d&risl=&pid=ImgRaw&r=0" alt="Hotel Hero Image" class="hero-image">
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="property-details-card">
+        <h2 class="title">{{ property.title }}</h2>
+        <div class="image-container">
+          <img src="{{ property.image }}" alt="Property Image" class="property-image">
+        </div>
+        <div class="property-info">
+          <p><strong>Title:</strong> {{ property.property_name }}</p>
+          <p><strong>Location:</strong> {{ property.state }}</p>
+          <p><strong>Property Type:</strong> {{ property.description }}</p>
+          <p class="description">
+            Welcome to {{ property.property_name }} House, a charming and cozy hotel located in the heart of Bengaluru.
+            This lovely hotel offers a serene and luxurious atmosphere, perfect for a delightful stay. Our well-appointed rooms, elegant decor, and top-notch amenities are designed to make your visit unforgettable. Step outside and enjoy the lush garden and a relaxing pool area. Whether you're here for a business trip or a family vacation, Serenity Haven Hotel caters to all your needs.
+          </p>
+          <p><strong>Price per Night:</strong> {{ property.price }}</p>
+          <p class="status"><strong>Status:</strong> {{ property.status ? 'Available' : 'Not Available' }}</p>
+        </div>
+
+        <div class="booking-form mt-3">
+          <h3 class="booking-heading">Book Your Stay</h3>
+          <label for="bookDate">Check-in Date:</label>
+          <input type="date" id="bookDate" [(ngModel)]="bookDate" (change)="calculateTotalRent()">
+          <label for="endDate">Check-out Date:</label>
+          <input type="date" id="endDate" [(ngModel)]="endDate" (change)="calculateTotalRent()">
+
+          <!-- Display calculated total days and rent -->
+          <div *ngIf="totalDays && totalRent" class="mt-3">
+            <p><strong>Total Nights:</strong> {{ totalDays }}</p>
+            <p><strong>Total Price:</strong> {{ totalRent }}</p>
+          </div>
+
+          <!-- Show booking error message if there's an error -->
+          <span class="booking-error text-danger">{{ bookingError }}</span>
+
+          <div class="action-buttons mt-3">
+            <button class="btn btn-secondary" (click)="goBack()">Browse More Hotels</button>
+            <button
+              class="btn btn-primary"
+              [ngClass]="{ 'disabled-btn': property.status === false }"
+              (click)="bookProperty()"
+              [disabled]="property.status === false"
+            >
+              {{ property.status ? 'Book Now' : 'Not Available' }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Add custom illustrations for decoration -->
+        <div class="illustrations">
+          <img src="https://media.istockphoto.com/vectors/vector-flat-design-hotel-vector-id923370466?k=6&m=923370466&s=612x612&w=0&h=-8M-LMUMGiDEI1na0PtZ3MUJi_t1gGquHzJ4LchMiGc=" alt="Hotel Illustration 1" class="hotel-illustration">
+          <img src="https://media.istockphoto.com/vectors/vector-flat-design-hotel-vector-id923370466?k=6&m=923370466&s=612x612&w=0&h=-8M-LMUMGiDEI1na0PtZ3MUJi_t1gGquHzJ4LchMiGc=" alt="Hotel Illustration 2" class="hotel-illustration">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

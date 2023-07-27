@@ -1,0 +1,198 @@
+/* General styles */
+.container{
+  margin-top: 150px;
+
+}
+.property-details-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+}
+
+.property-details-card h2.title {
+  margin-bottom: 15px;
+  font-size: 30px;
+  color: #333;
+  text-align: center;
+}
+
+.property-details-card .image-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.property-details-card .property-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+.property-details-card .property-image:hover {
+  transform: scale(1.05);
+}
+
+.property-details-card .property-info {
+  margin-top: 20px;
+  color: #555;
+}
+
+.property-details-card p {
+  margin: 5px 0;
+}
+
+.property-details-card p.description {
+  line-height: 1.6;
+}
+
+.property-details-card .booking-form h3.booking-heading {
+  margin-bottom: 10px;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+}
+
+.property-details-card .booking-form label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.property-details-card .booking-form input[type="date"] {
+  margin-bottom: 5px;
+}
+
+.property-details-card .booking-form .btn-secondary {
+  margin-right: 10px;
+}
+
+.property-details-card .booking-error {
+  display: block;
+  margin-top: 10px;
+  color: #ff0000;
+  font-size: 14px;
+}
+
+.property-details-card .action-buttons {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.property-details-card .action-buttons .btn-primary {
+  background-color: #ff6600;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.property-details-card .action-buttons .btn-primary:hover {
+  background-color: #ff8000;
+}
+
+/* Disabled button styles */
+.disabled-btn {
+  background-color: #ddd;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* New hero section styles */
+.hero-section {
+  position: relative;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.hero-title {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.hero-image {
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Custom illustrations styles */
+.illustrations {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.hotel-illustration {
+  max-width: 100px;
+  height: auto;
+  position: absolute;
+  opacity: 0.5;
+  transform: rotate(20deg);
+  transition: opacity 0.3s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.hotel-illustration:nth-child(1) {
+  top: -100px;
+  left: -10px;
+}
+
+.hotel-illustration:nth-child(2) {
+  bottom: -10px;
+  right: -10px;
+}
+
+.hotel-illustration:hover {
+  opacity: 0.8;
+  transform: rotate(30deg) scale(1.1);
+}
+
+/* New animation styles */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Apply animations to elements */
+.property-details-card {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.hero-section {
+  animation: slideIn 1s ease-in-out;
+}
+
+.property-details-card .booking-form {
+  animation: scaleIn 1s ease-in-out;
+}

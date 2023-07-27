@@ -78,7 +78,7 @@ export class PropertyComponent implements OnInit {
   }
 
   viewPreview(propertyId: string): void {
-    this.router.navigate(['/preview', propertyId]);
+    this.router.navigate(['/bookProperty', propertyId]);
   }
 
   toggleSortDirection(): void {

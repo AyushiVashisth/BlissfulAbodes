@@ -10,13 +10,15 @@ import { PropertyComponent } from './property/property.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginRegisterComponent } from './Login/login.component';
 import { FormsModule } from '@angular/forms'; 
+import { BookPropertyComponent } from './bookProperty/bookProperty.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingComponent,
     PropertyComponent,
-    LoginRegisterComponent
+    LoginRegisterComponent,
+    BookPropertyComponent
   ],
   imports: [
     BrowserModule,
