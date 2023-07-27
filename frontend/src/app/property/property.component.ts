@@ -19,7 +19,7 @@ export class PropertyComponent implements OnInit {
   stateFilter: string = '';
   sortField: string = 'price';
   sortOrder: number = 1;
-  propertyAvailabilityFilter: boolean | null = null; // Use boolean | null instead of any
+  propertyAvailabilityFilter: boolean = false; 
 
   constructor(
     private propertyService: PropertyService,
@@ -43,13 +43,15 @@ export class PropertyComponent implements OnInit {
         this.nameFilter,
         this.propertyNameFilter,
         this.stateFilter,
-        this.sortOrder, // Swap sortField with sortOrder
-        this.sortField, // Swap sortOrder with sortField
-        this.propertyAvailabilityFilter || false
+        this.sortOrder, 
+        this.sortField,
+        this.propertyAvailabilityFilter
+        
       )
       .subscribe(
         (response: any) => {
           this.properties = response;
+          console.log(response)
           this.totalPages = response.totalPages;
         },
         (error: any) => {
@@ -60,6 +62,7 @@ export class PropertyComponent implements OnInit {
 
   applyFilters(): void {
     this.currentPage = 1;
+    console.log(this.propertyAvailabilityFilter)
     this.getProperties();
   }
   

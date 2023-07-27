@@ -17,7 +17,7 @@
         <option [value]="true">Available</option>
         <option [ngValue]="false">Not Available</option>
         <!-- Add other Availability options as needed -->
-      </select>  
+      </select>
       
 
       <!-- <select [(ngModel)]="ratingFilter" (change)="applyFilters()">
@@ -37,7 +37,7 @@
       <h1>{{ property.property_name }}</h1>
       <p class="location">{{ property.state }}</p>
       <p class="description">{{ property.description }}</p>
-      <p class="availability" >{{ property.availability ? 'Available' : 'Not Available' }}</p>
+      <p class="availability" >{{ property.availability=="True" ? "Available" : "Not Available"  }}</p>
 
       <div class="info">
         <p class="price">Price: {{ property.price }}</p>

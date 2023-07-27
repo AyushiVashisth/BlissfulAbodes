@@ -20,7 +20,7 @@ export class PropertyService {
     stateFilter: string,
     sortOrder: number,
     sortField: string,
-    propertyAvailabilityFilter: boolean // Change the type to boolean
+    propertyAvailabilityFilter: boolean 
   ): Observable<any> {
     let params = new HttpParams()
       .set('page', page.toString())

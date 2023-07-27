@@ -9,7 +9,8 @@ import { LandingComponent } from './landing/landing.component';
 import { PropertyComponent } from './property/property.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginRegisterComponent } from './Login/login.component';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
+import { PaymentComponent } from './booking/booking.component';
 import { BookPropertyComponent } from './bookProperty/bookProperty.component';
 
 @NgModule({
@@ -18,7 +19,8 @@ import { BookPropertyComponent } from './bookProperty/bookProperty.component';
     LandingComponent,
     PropertyComponent,
     LoginRegisterComponent,
-    BookPropertyComponent
+    BookPropertyComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,8 @@ import { BookPropertyComponent } from './bookProperty/bookProperty.component';
     BrowserAnimationsModule,
     RouterModule,
     HttpClientModule,
-    FormsModule 
+    FormsModule,
+    ReactiveFormsModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
