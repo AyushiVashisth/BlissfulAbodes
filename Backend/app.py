@@ -147,21 +147,28 @@ def logout():
 @app.route("/properties", methods=["GET"])
 def get_all_properties():
     db = get_db()
-    #  implementation for getting all properties
-    sort_by = request.args.get('sort_by', 'price')  
-    sort_order = int(request.args.get('sort_order', 1)) 
-    page = int(request.args.get('page', 1)) 
-    per_page = int(request.args.get('per_page', 9)) 
+    # implementation for getting all properties
+    sort_by = request.args.get('sort_by', 'price')
+    sort_order = int(request.args.get('sort_order', 1))
+    page = int(request.args.get('page', 1))
+    per_page = int(request.args.get('per_page', 9))
     title_filter = request.args.get('property_name', '')
-    property_type_filter = request.args.get('propertyType', '')
-    state_filter = request.args.get('state', '')
+    property_name_filter = request.args.get('property_name', '')
+    state_filter = request.args.get('state', '')  # Get the state filter from the query parameters
+    availability_filter = request.args.get('availability', '')
+
     filter_query = {}
     if title_filter:
-        filter_query['property_name'] = {'$regex': title_filter, '$options': 'i'} 
-    if property_type_filter:
-        filter_query['propertyType'] = property_type_filter
+        filter_query['property_name'] = {'$regex': title_filter, '$options': 'i'}
+    if property_name_filter:
+        filter_query['propertyType'] = property_name_filter
     if state_filter:
-        filter_query['location'] = state_filter
+        filter_query['state'] = state_filter
+
+    if availability_filter == 'true':  # Filter based on availability being True
+        filter_query['availability'] = True
+    elif availability_filter == 'false':  # Filter based on availability being False
+        filter_query['availability'] = False
 
     total_properties = db.properties.count_documents(filter_query)
 
@@ -187,19 +194,19 @@ def get_all_properties():
         res.append({
             "id": str(property["_id"]),
             "name": str(property['name']),
-            "location": str(property['location']),
+            "state": str(property['state']),
             "hostingSince": str(property['hostingSince']),
             "about": str(property['about']),
             "description": str(property['description']),
             "price": str(property['price']),
             "status": str(property['status']),
-            "image": str(property['image']), 
+            "image": str(property['image']),
             "profile": str(property['profile']),
             "property_name": str(property['property_name']),
             "availability": str(property['availability']),
             "rating": str(property['rating']),
             "city": str(property['city']),
-            "state":str(property['state']),
+            "state": str(property['state']),
             "date": str(property['date']),
         })
 
@@ -214,7 +221,7 @@ def get_property(property_id):
         res = {
             "id": str(property["_id"]),
             "name": str(property['name']),
-            "location": str(property['location']),
+            "state": str(property['state']),
             "hostingSince": str(property['hostingSince']),
             "about": str(property['about']),
             "description": str(property['description']),
@@ -238,6 +245,8 @@ def create_property():
     #  implementation for creating a property
     db = get_db()
     data = request.get_json()
+    # Convert the availability value to a boolean
+    data["availability"] = bool(data["availability"])
     property = Property(
         name=data["name"],
         hostingSince=data["hostingSince"],
@@ -245,7 +254,7 @@ def create_property():
         description=data["description"],
         price=data["price"],
         status=data["status"],
-        image=data["image"],  
+        image=data["image"],
         profile=data["profile"],
         property_name=data["property_name"],
         availability=data["availability"],
@@ -253,16 +262,17 @@ def create_property():
         city=data["city"],
         state=data["state"],
         date=data["date"],
-        
     )
     db.properties.insert_one(property.__dict__)
     return jsonify({"message": "Property created successfully"}), 201
 
+
 @app.route("/properties/<string:property_id>", methods=["PUT"])
 def update_property(property_id):
-    #  implementation for updating a property
     db = get_db()
     data = request.get_json()
+    # Convert the availability value to a boolean
+    data["availability"] = bool(data["availability"])
     db.properties.update_one({"_id": ObjectId(property_id)}, {"$set": data})
     return jsonify({"message": "Property updated successfully"})
 

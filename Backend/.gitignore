@@ -1,2 +1,8 @@
-/venv
-__pycacha__
+# # Ignore the virtual environment
+# venv/
+
+# # Ignore Python bytecode files
+# __pycache__/
+
+# # Ignore the database file
+# db.json
