@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BookingComponent } from './booking/booking.component';
 import { BookPropertyComponent } from './bookProperty/bookProperty.component';
 import { BookingPageComponent } from './booking-page/booking-page.component';
+import { ChatBoxComponent } from './chatbox/chatbox.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BookingPageComponent } from './booking-page/booking-page.component';
     LoginRegisterComponent,
     BookPropertyComponent,
     BookingComponent,
-    BookingPageComponent
+    BookingPageComponent,
+    ChatBoxComponent
   ],
   imports: [
     BrowserModule,

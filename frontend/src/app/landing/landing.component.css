@@ -190,3 +190,155 @@
     margin: 10px;
     font-size: 25px
 }
+
+
+@media screen and (max-width: 768px) {
+    .uae {
+        width: 108px;
+        height: 126px;
+        left: 10px;
+        top: 310px;
+        cursor: pointer
+    }
+    
+    .uae,.uaeDiv {
+        position: absolute
+    }
+    
+    .uaeDiv {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 30px;
+        font-size: 20px;
+        background-color: #fff;
+        top: 450px;
+        left: 15px
+    }
+    
+    .nepal {
+        width: 108px;
+        height: 126px;
+        left: 70px;
+        top: 170px;
+        cursor: pointer
+    }
+    
+    .nepal,.nepalDiv {
+        position: absolute
+    }
+    
+    .nepalDiv {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 30px;
+        font-size: 20px;
+        background-color: #fff;
+        top: 270px;
+        left: 50px
+    }
+    
+    .china {
+        width: 108px;
+        height: 126px;
+        left: 200px;
+        top: 205px;
+        cursor: pointer
+    }
+    
+    .china,.chinaDiv {
+        position: absolute
+    }
+    
+    .chinaDiv {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 30px;
+        font-size: 20px;
+        background-color: #fff;
+        top: 250px;
+        left: 300px
+    }
+    
+    .india {
+        width: 108px;
+        height: 126px;
+        left: 130px;
+        top: 380px;
+        cursor: pointer
+    }
+    
+    .india,.indiaDiv {
+        position: absolute
+    }
+    
+    .indiaDiv {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 30px;
+        font-size: 20px;
+        background-color: #fff;
+        top: 510px;
+        left: 110px
+    }
+    
+    .malayasia {
+        position: absolute;
+        width: 150px;
+        height: 100px;
+        left: 230px;
+        top: 350px;
+        cursor: pointer
+    }
+    
+    .malayasiaDiv {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 30px;
+        font-size: 20px;
+        background-color: #fff;
+        left: 300px
+    }
+    
+    .indonesia,.malayasiaDiv {
+        position: absolute;
+        top: 450px
+    }
+    
+    .indonesia {
+        width: 106px;
+        height: 136px;
+        left: 210px;
+        cursor: pointer
+    }
+    
+    .indoDiv {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 30px;
+        font-size: 20px;
+        background-color: #fff;
+        top: 575px;
+        left: 200px
+    }
+    
+    
+    .world-wide-right-section {
+      display: none;
+      /* margin-top: 500px;
+      margin-left: 10px; */
+    }
+    
+  }
