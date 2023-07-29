@@ -80,15 +80,23 @@ The following key features will be implemented in the application:
 ![Screenshot 2023-07-29 072338](https://github.com/AyushiVashisth/BlissfulAbodes/assets/107119119/0a062be9-82de-4657-8bf2-e6e30f472767)
 
 ## Property Page
+![Screenshot 2023-07-29 104152](https://github.com/AyushiVashisth/BlissfulAbodes/assets/107119119/ddb3a4f4-5d2c-4d89-ac5c-8a75e5603048)
 
 ## Booking-Property Page
+![Screenshot 2023-07-29 104308](https://github.com/AyushiVashisth/BlissfulAbodes/assets/107119119/cd9df34b-ff59-4860-809d-93021353c646)
+![Screenshot 2023-07-29 104326](https://github.com/AyushiVashisth/BlissfulAbodes/assets/107119119/cfcdad21-0da3-4f5e-b13f-7442b486a7ea)
+![Screenshot 2023-07-29 105909](https://github.com/AyushiVashisth/BlissfulAbodes/assets/107119119/aa2e0a4c-0c5f-4c2e-89cd-d7fe64794044)
 
 ## Payment Page
+![Screenshot 2023-07-29 105925](https://github.com/AyushiVashisth/BlissfulAbodes/assets/107119119/3555b8e8-4cb8-4fbd-96da-f41d21108cd4)
+![Screenshot 2023-07-29 105944](https://github.com/AyushiVashisth/BlissfulAbodes/assets/107119119/baa9e772-e4ba-41b5-819d-78ff51166adf)
+![Screenshot 2023-07-29 110035](https://github.com/AyushiVashisth/BlissfulAbodes/assets/107119119/c8bcbf4c-95c8-4451-aec0-7b3b6525f56f)
+![Screenshot 2023-07-29 110100](https://github.com/AyushiVashisth/BlissfulAbodes/assets/107119119/721b2e64-1287-45b4-8483-1eb718f8b569)
 
 ## Booking Page
+![Screenshot 2023-07-29 110158](https://github.com/AyushiVashisth/BlissfulAbodes/assets/107119119/5059e66b-ee5d-4651-9925-df09352fa889)
 
  # Languages Used :
-
 
 <ul dir="auto">
  <ol dir="auto">◉ Python : 99.3%</ol>
