@@ -19,7 +19,7 @@ export class PropertyComponent implements OnInit {
   stateFilter: string = '';
   sortField: string = 'price';
   sortOrder: number = 1;
-  propertyAvailabilityFilter: boolean = false; 
+  propertyAvailabilityFilter: boolean = true; 
 
   constructor(
     private propertyService: PropertyService,

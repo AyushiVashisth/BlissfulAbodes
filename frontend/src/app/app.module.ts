@@ -10,8 +10,9 @@ import { PropertyComponent } from './property/property.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginRegisterComponent } from './Login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
-import { PaymentComponent } from './booking/booking.component';
+import { BookingComponent } from './booking/booking.component';
 import { BookPropertyComponent } from './bookProperty/bookProperty.component';
+import { BookingPageComponent } from './booking-page/booking-page.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { BookPropertyComponent } from './bookProperty/bookProperty.component';
     PropertyComponent,
     LoginRegisterComponent,
     BookPropertyComponent,
-    PaymentComponent
+    BookingComponent,
+    BookingPageComponent
   ],
   imports: [
     BrowserModule,

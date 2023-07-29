@@ -144,3 +144,113 @@
     margin-top: 10px;
   }
     
+  /* booking.component.css */
+
+/* Custom Container */
+.custom-container {
+  max-width: 800px;
+  margin:auto;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 130px;
+}
+.custom-mt-5{
+  max-width: 800px;
+  margin:auto;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+/* Custom Payment Details Card */
+.custom-payment-details-card {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom Form Container */
+.custom-form-container {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom Form Group */
+.custom-form-group {
+  margin-bottom: 20px;
+}
+
+/* Custom Form Label */
+.custom-form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #252627;
+}
+.custom-form-select{
+  padding: 8px;
+}
+.custom-btn{
+ width: 98%;
+ background-color: #007bff;
+}
+
+/* Custom Form Control */
+.custom-form-control {
+  width: 95%;
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.custom-form-control:focus {
+  outline: none;
+  border-color: #252627;
+}
+
+/* Custom Error Message */
+.custom-error-message {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Custom Button */
+.custom-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  /* background-color: #252627; */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-btn:hover {
+  background-color: #588fe2;
+}
+
+/* Custom Secondary Button */
+.custom-btn-secondary {
+  color: #252627;
+  background-color: #e9ecef;
+}
+
+.custom-btn-secondary:hover {
+  background-color: #d6d6d6;
+}

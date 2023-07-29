@@ -29,12 +29,21 @@
         </button>
       </div>
     </div>
+    
     <div class="right-side">
+      <div (click)="onBookingClicked()">
+        <span class="material-icons"> local_convenience_store </span>
+      </div>
       <mat-icon>account_circle</mat-icon>
-      <button class="login-btn" (click)="onLoginClicked()">
-        Login / Sign in
-      </button>
+      <div *ngIf="isUserLoggedIn(); else loginButton">
+        <span class="username">{{ getUsernameFromLocalStorage() }}</span>
+        <button class="login-btn" (click)="onLogout()">Logout</button>
+      </div>
+      <ng-template #loginButton>
+        <button class="login-btn" (click)="onLoginClicked()">Login / Sign in</button>
+      </ng-template>
     </div>
+    
   </nav>
   <div class="states">
     <div *ngFor="let state of states">

@@ -119,9 +119,9 @@ export class BookPropertyComponent {
       price: this.property.price,
       property_location: this.property.location,
       property_image: this.property.image,
-      book_date: this.checkInDate,
-      end_date: this.checkOutDate,
-      total_price: this.totalRent,
+      checkInDate: this.checkInDate,
+      checkOutDate: this.checkOutDate,
+      totalRent: this.totalRent,
     };
 
     // Navigate to the PaymentComponent with the property data as query parameters

@@ -15,20 +15,37 @@ interface State {
 })
 export class AppComponent {
   activeState: State | null = null;
-  onLoginClicked() {
-    console.log('Login button clicked');
-  }
   searchQuery: string = '';
   properties: any[] = [];
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  onBookingClicked():void{
+    this.router.navigate(['/booking']);
+  }
+  onLoginClicked() {
+    console.log('Login button clicked');
+    this.router.navigate(['/login']);
+  }
   onHome(): void {
     this.router.navigate(['/']);
   }
 
   onState(): void {
     this.router.navigate(['/property']);
+  }
+  isUserLoggedIn(): boolean {
+    return !!localStorage.getItem('userRole'); // Convert the value to a boolean using '!!'
+  }
+
+  getUsernameFromLocalStorage(): string {
+    // Replace 'username' with the key under which you store the username in localStorage
+    return localStorage.getItem('username') || ''; // If 'username' is not found, return an empty string
+  }
+
+  onLogout(): void {
+    localStorage.removeItem('userRole');
+    // Additional cleanup code can be added here if needed
   }
   
   onSearch(): void {
