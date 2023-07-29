@@ -3,7 +3,7 @@
 
 <br/>
 <h3 align="justify" width="80%">
-BlissfulAbodes is a renowned online platform that revolutionized travel accommodations. It connects hosts offering unique stays with travelers seeking personalized experiences. Users can explore a vast array of accommodations, from private rooms to entire homes, in various locations worldwide. BlissfulAbodes's user-friendly interface, comprehensive listings, and secure booking system have made it a popular choice for travelers seeking authentic and memorable stays.</h3>
+BlissfulAbodes is a renowned online platform that revolutionized travel accommodations. It connects hosts offering unique stays with travellers seeking personalized experiences. Users can explore a vast array of accommodations, from private rooms to entire homes, in various locations worldwide. BlissfulAbodes's user-friendly interface, comprehensive listings, and secure booking system have made it a popular choice for travellers seeking authentic and memorable stays.</h3>
 
 <br/>
 
@@ -70,8 +70,14 @@ The following key features will be implemented in the application:
 <br/>
 
 ## Home Page
+![Screenshot 2023-07-29 072254](https://github.com/AyushiVashisth/BlissfulAbodes/assets/107119119/0f67c79c-5c34-4510-abb9-4727683c2468)
+![Screenshot 2023-07-29 072307](https://github.com/AyushiVashisth/BlissfulAbodes/assets/107119119/66493907-cfa4-4912-a96b-0f66f6ee68b4)
+
+## Chatbot
+![Screenshot 2023-07-29 103828](https://github.com/AyushiVashisth/BlissfulAbodes/assets/107119119/d3003dd6-dee0-444b-a751-7f5d227e94ab)
 
 ## Signup Page/Login Page
+![Screenshot 2023-07-29 072338](https://github.com/AyushiVashisth/BlissfulAbodes/assets/107119119/0a062be9-82de-4657-8bf2-e6e30f472767)
 
 ## Property Page
 
