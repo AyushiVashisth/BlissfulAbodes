@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'booking', component: BookingPageComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginRegisterComponent},
   { path: "bookProperty/:id", component: BookPropertyComponent, canActivate: [AuthGuard]},
-  { path: "bookpayment", component: BookingComponent, canActivate: [AuthGuard]},
+  { path: "bookpayment", component: BookingComponent },
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: '**', component: LandingComponent },
 ];
