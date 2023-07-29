@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class PropertyService {
-  private baseUrl = 'https://blissful-abodes-api.onrender.com/properties';
+  private baseUrl = 'http://localhost:5000/properties';
   sortBy: string = 'price';
   sortOrder: number = 1;
 
